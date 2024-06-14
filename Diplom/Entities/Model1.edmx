@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище VovaDiplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryIllness">
+          <Key>
+            <PropertyRef Name="CategoryIllnessId" />
+          </Key>
+          <Property Name="CategoryIllnessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryIllness" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Illness">
+          <Key>
+            <PropertyRef Name="IllnessId" />
+          </Key>
+          <Property Name="IllnessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Illness" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CategoryIllnessId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedCard">
+          <Key>
+            <PropertyRef Name="MedCardId" />
+          </Key>
+          <Property Name="MedCardId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Vaccinations" Type="nvarchar(max)" />
+          <Property Name="Result" Type="nvarchar(max)" />
+          <Property Name="RecruitId" Type="int" Nullable="false" />
+          <Property Name="Analyse" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MedicalOpinions">
+          <Key>
+            <PropertyRef Name="MedicalOpinionId" />
+          </Key>
+          <Property Name="MedicalOpinionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpinionId" Type="int" Nullable="false" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="MedCardId" Type="int" Nullable="false" />
+          <Property Name="IllnessID" Type="int" />
+        </EntityType>
+        <EntityType Name="MilitaryTerritory">
+          <Key>
+            <PropertyRef Name="MilitaryTerritoryId" />
+          </Key>
+          <Property Name="MilitaryTerritoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TerritoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Opinion">
+          <Key>
+            <PropertyRef Name="OpinionId" />
+          </Key>
+          <Property Name="OpinionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opinion" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recruit">
+          <Key>
+            <PropertyRef Name="RecruitId" />
+          </Key>
+          <Property Name="RecruitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MilitaryTerritoryId" Type="int" />
+          <Property Name="DraftDate" Type="date" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Illness_CategoryIllness">
+          <End Role="CategoryIllness" Type="Self.CategoryIllness" Multiplicity="1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryIllness">
+              <PropertyRef Name="CategoryIllnessId" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="CategoryIllnessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedCard_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MedCard">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedCard_Recruit">
+          <End Role="Recruit" Type="Self.Recruit" Multiplicity="1" />
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recruit">
+              <PropertyRef Name="RecruitId" />
+            </Principal>
+            <Dependent Role="MedCard">
+              <PropertyRef Name="RecruitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Illness">
+          <End Role="Illness" Type="Self.Illness" Multiplicity="0..1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illness">
+              <PropertyRef Name="IllnessId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="IllnessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_MedCard">
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedCard">
+              <PropertyRef Name="MedCardId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="MedCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Opinion">
+          <End Role="Opinion" Type="Self.Opinion" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opinion">
+              <PropertyRef Name="OpinionId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="OpinionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recruit_MilitaryTerritory">
+          <End Role="MilitaryTerritory" Type="Self.MilitaryTerritory" Multiplicity="0..1" />
+          <End Role="Recruit" Type="Self.Recruit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MilitaryTerritory">
+              <PropertyRef Name="MilitaryTerritoryId" />
+            </Principal>
+            <Dependent Role="Recruit">
+              <PropertyRef Name="MilitaryTerritoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище VovaDiplomModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryIllness" EntityType="Self.CategoryIllness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Illness" EntityType="Self.Illness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedCard" EntityType="Self.MedCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalOpinions" EntityType="Self.MedicalOpinions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MilitaryTerritory" EntityType="Self.MilitaryTerritory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Opinion" EntityType="Self.Opinion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recruit" EntityType="Self.Recruit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Illness_CategoryIllness" Association="Self.FK_Illness_CategoryIllness">
+            <End Role="CategoryIllness" EntitySet="CategoryIllness" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedCard_Category" Association="Self.FK_MedCard_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MedCard" EntitySet="MedCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedCard_Recruit" Association="Self.FK_MedCard_Recruit">
+            <End Role="Recruit" EntitySet="Recruit" />
+            <End Role="MedCard" EntitySet="MedCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Illness" Association="Self.FK_MedicalOpinions_Illness">
+            <End Role="Illness" EntitySet="Illness" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_MedCard" Association="Self.FK_MedicalOpinions_MedCard">
+            <End Role="MedCard" EntitySet="MedCard" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Opinion" Association="Self.FK_MedicalOpinions_Opinion">
+            <End Role="Opinion" EntitySet="Opinion" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Users" Association="Self.FK_MedicalOpinions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recruit_MilitaryTerritory" Association="Self.FK_Recruit_MilitaryTerritory">
+            <End Role="MilitaryTerritory" EntitySet="MilitaryTerritory" />
+            <End Role="Recruit" EntitySet="Recruit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VovaDiplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MedCard" Relationship="Self.FK_MedCard_Category" FromRole="Category" ToRole="MedCard" />
+        </EntityType>
+        <EntityType Name="CategoryIllness">
+          <Key>
+            <PropertyRef Name="CategoryIllnessId" />
+          </Key>
+          <Property Name="CategoryIllnessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryIllness1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Illness" Relationship="Self.FK_Illness_CategoryIllness" FromRole="CategoryIllness" ToRole="Illness" />
+        </EntityType>
+        <EntityType Name="Illness">
+          <Key>
+            <PropertyRef Name="IllnessId" />
+          </Key>
+          <Property Name="IllnessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Illness1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryIllnessId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategoryIllness" Relationship="Self.FK_Illness_CategoryIllness" FromRole="Illness" ToRole="CategoryIllness" />
+          <NavigationProperty Name="MedicalOpinions" Relationship="Self.FK_MedicalOpinions_Illness" FromRole="Illness" ToRole="MedicalOpinions" />
+        </EntityType>
+        <EntityType Name="MedCard">
+          <Key>
+            <PropertyRef Name="MedCardId" />
+          </Key>
+          <Property Name="MedCardId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Vaccinations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecruitId" Type="Int32" Nullable="false" />
+          <Property Name="Analyse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_MedCard_Category" FromRole="MedCard" ToRole="Category" />
+          <NavigationProperty Name="Recruit" Relationship="Self.FK_MedCard_Recruit" FromRole="MedCard" ToRole="Recruit" />
+          <NavigationProperty Name="MedicalOpinions" Relationship="Self.FK_MedicalOpinions_MedCard" FromRole="MedCard" ToRole="MedicalOpinions" />
+        </EntityType>
+        <EntityType Name="MedicalOpinions">
+          <Key>
+            <PropertyRef Name="MedicalOpinionId" />
+          </Key>
+          <Property Name="MedicalOpinionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpinionId" Type="Int32" Nullable="false" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MedCardId" Type="Int32" Nullable="false" />
+          <Property Name="IllnessID" Type="Int32" />
+          <NavigationProperty Name="Illness" Relationship="Self.FK_MedicalOpinions_Illness" FromRole="MedicalOpinions" ToRole="Illness" />
+          <NavigationProperty Name="MedCard" Relationship="Self.FK_MedicalOpinions_MedCard" FromRole="MedicalOpinions" ToRole="MedCard" />
+          <NavigationProperty Name="Opinion" Relationship="Self.FK_MedicalOpinions_Opinion" FromRole="MedicalOpinions" ToRole="Opinion" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_MedicalOpinions_Users" FromRole="MedicalOpinions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="MilitaryTerritory">
+          <Key>
+            <PropertyRef Name="MilitaryTerritoryId" />
+          </Key>
+          <Property Name="MilitaryTerritoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TerritoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Recruit" Relationship="Self.FK_Recruit_MilitaryTerritory" FromRole="MilitaryTerritory" ToRole="Recruit" />
+        </EntityType>
+        <EntityType Name="Opinion">
+          <Key>
+            <PropertyRef Name="OpinionId" />
+          </Key>
+          <Property Name="OpinionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opinion1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MedicalOpinions" Relationship="Self.FK_MedicalOpinions_Opinion" FromRole="Opinion" ToRole="MedicalOpinions" />
+        </EntityType>
+        <EntityType Name="Recruit">
+          <Key>
+            <PropertyRef Name="RecruitId" />
+          </Key>
+          <Property Name="RecruitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MilitaryTerritoryId" Type="Int32" />
+          <Property Name="DraftDate" Type="DateTime" Precision="0" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MedCard" Relationship="Self.FK_MedCard_Recruit" FromRole="Recruit" ToRole="MedCard" />
+          <NavigationProperty Name="MilitaryTerritory" Relationship="Self.FK_Recruit_MilitaryTerritory" FromRole="Recruit" ToRole="MilitaryTerritory" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Role" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MedicalOpinions" Relationship="Self.FK_MedicalOpinions_Users" FromRole="Users" ToRole="MedicalOpinions" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_MedCard_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="MedCard">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illness_CategoryIllness">
+          <End Role="CategoryIllness" Type="Self.CategoryIllness" Multiplicity="1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryIllness">
+              <PropertyRef Name="CategoryIllnessId" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="CategoryIllnessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Illness">
+          <End Role="Illness" Type="Self.Illness" Multiplicity="0..1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illness">
+              <PropertyRef Name="IllnessId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="IllnessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedCard_Recruit">
+          <End Role="Recruit" Type="Self.Recruit" Multiplicity="1" />
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recruit">
+              <PropertyRef Name="RecruitId" />
+            </Principal>
+            <Dependent Role="MedCard">
+              <PropertyRef Name="RecruitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_MedCard">
+          <End Role="MedCard" Type="Self.MedCard" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedCard">
+              <PropertyRef Name="MedCardId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="MedCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Opinion">
+          <End Role="Opinion" Type="Self.Opinion" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opinion">
+              <PropertyRef Name="OpinionId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="OpinionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalOpinions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MedicalOpinions" Type="Self.MedicalOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MedicalOpinions">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recruit_MilitaryTerritory">
+          <End Role="MilitaryTerritory" Type="Self.MilitaryTerritory" Multiplicity="0..1" />
+          <End Role="Recruit" Type="Self.Recruit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MilitaryTerritory">
+              <PropertyRef Name="MilitaryTerritoryId" />
+            </Principal>
+            <Dependent Role="Recruit">
+              <PropertyRef Name="MilitaryTerritoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VovaDiplomEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="CategoryIllness" EntityType="Self.CategoryIllness" />
+          <EntitySet Name="Illness" EntityType="Self.Illness" />
+          <EntitySet Name="MedCard" EntityType="Self.MedCard" />
+          <EntitySet Name="MedicalOpinions" EntityType="Self.MedicalOpinions" />
+          <EntitySet Name="MilitaryTerritory" EntityType="Self.MilitaryTerritory" />
+          <EntitySet Name="Opinion" EntityType="Self.Opinion" />
+          <EntitySet Name="Recruit" EntityType="Self.Recruit" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_MedCard_Category" Association="Self.FK_MedCard_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MedCard" EntitySet="MedCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illness_CategoryIllness" Association="Self.FK_Illness_CategoryIllness">
+            <End Role="CategoryIllness" EntitySet="CategoryIllness" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Illness" Association="Self.FK_MedicalOpinions_Illness">
+            <End Role="Illness" EntitySet="Illness" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedCard_Recruit" Association="Self.FK_MedCard_Recruit">
+            <End Role="Recruit" EntitySet="Recruit" />
+            <End Role="MedCard" EntitySet="MedCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_MedCard" Association="Self.FK_MedicalOpinions_MedCard">
+            <End Role="MedCard" EntitySet="MedCard" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Opinion" Association="Self.FK_MedicalOpinions_Opinion">
+            <End Role="Opinion" EntitySet="Opinion" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalOpinions_Users" Association="Self.FK_MedicalOpinions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MedicalOpinions" EntitySet="MedicalOpinions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recruit_MilitaryTerritory" Association="Self.FK_Recruit_MilitaryTerritory">
+            <End Role="MilitaryTerritory" EntitySet="MilitaryTerritory" />
+            <End Role="Recruit" EntitySet="Recruit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище VovaDiplomModelContainer" CdmEntityContainer="VovaDiplomEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Category1" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryIllness">
+            <EntityTypeMapping TypeName="VovaDiplomModel.CategoryIllness">
+              <MappingFragment StoreEntitySet="CategoryIllness">
+                <ScalarProperty Name="CategoryIllnessId" ColumnName="CategoryIllnessId" />
+                <ScalarProperty Name="CategoryIllness1" ColumnName="CategoryIllness" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Illness">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Illness">
+              <MappingFragment StoreEntitySet="Illness">
+                <ScalarProperty Name="IllnessId" ColumnName="IllnessId" />
+                <ScalarProperty Name="Illness1" ColumnName="Illness" />
+                <ScalarProperty Name="CategoryIllnessId" ColumnName="CategoryIllnessId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedCard">
+            <EntityTypeMapping TypeName="VovaDiplomModel.MedCard">
+              <MappingFragment StoreEntitySet="MedCard">
+                <ScalarProperty Name="MedCardId" ColumnName="MedCardId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Vaccinations" ColumnName="Vaccinations" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="Analyse" ColumnName="Analyse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalOpinions">
+            <EntityTypeMapping TypeName="VovaDiplomModel.MedicalOpinions">
+              <MappingFragment StoreEntitySet="MedicalOpinions">
+                <ScalarProperty Name="MedicalOpinionId" ColumnName="MedicalOpinionId" />
+                <ScalarProperty Name="OpinionId" ColumnName="OpinionId" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="MedCardId" ColumnName="MedCardId" />
+                <ScalarProperty Name="IllnessID" ColumnName="IllnessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MilitaryTerritory">
+            <EntityTypeMapping TypeName="VovaDiplomModel.MilitaryTerritory">
+              <MappingFragment StoreEntitySet="MilitaryTerritory">
+                <ScalarProperty Name="MilitaryTerritoryId" ColumnName="MilitaryTerritoryId" />
+                <ScalarProperty Name="TerritoryName" ColumnName="TerritoryName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opinion">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Opinion">
+              <MappingFragment StoreEntitySet="Opinion">
+                <ScalarProperty Name="OpinionId" ColumnName="OpinionId" />
+                <ScalarProperty Name="Opinion1" ColumnName="Opinion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recruit">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Recruit">
+              <MappingFragment StoreEntitySet="Recruit">
+                <ScalarProperty Name="RecruitId" ColumnName="RecruitId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MilitaryTerritoryId" ColumnName="MilitaryTerritoryId" />
+                <ScalarProperty Name="DraftDate" ColumnName="DraftDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VovaDiplomModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VovaDiplomModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

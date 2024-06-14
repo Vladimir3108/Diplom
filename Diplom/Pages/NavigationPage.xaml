@@ -1,0 +1,23 @@
+﻿<Page x:Class="Diplom.Pages.NavigationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="NavigationPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="UsersBtn" Content="Пользователи" Click="UsersBtn_Click"/>
+            <Button x:Name="RecruitsBtn" Content="Призывники" Click="RecruitsBtn_Click"/>
+            <Button x:Name="PDFRecruitBtn" Content="Сводный документ" Click="PDFRecruitBtn_Click"/>
+        </StackPanel>
+        <Button HorizontalAlignment="Center" Grid.Row="1" Content="Выйти" Width="190" Name="LogOut" Click="LogOut_Click"/>
+    </Grid>
+</Page>

@@ -1,0 +1,26 @@
+﻿<Page x:Class="Diplom.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="250" d:DesignWidth="400"
+      Title="LoginPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Введите учетные данные" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
+        <TextBox Style="{StaticResource PlaceholderTxt}"  Grid.Row="1" Name="LoginTxt" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <PasswordBox Grid.Row="2" Name="PassTxt" Height="20" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" PasswordChanged="PassTxt_PasswordChanged"/>
+        <TextBlock Grid.Row="2" x:Name="PlaceholderTxt" Height="20" Margin="15 10 10 10" Text="Введите пароль..." VerticalAlignment="Center" Foreground="Gray" IsHitTestVisible="False" Focusable="False" />
+        <Button x:Name="LoginBtn" Grid.Row="3" Content="Войти" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Click="LoginBtn_Click"/>
+        <TextBlock x:Name="ErrorTxt" Grid.Row="4" Foreground="Red" FontWeight="Bold" TextAlignment="Center" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
+    </Grid>
+</Page>
