@@ -1,0 +1,7 @@
+Администратор
+Логин - adminSmirnova
+Пароль - smirnovaET
+
+Врач
+Логин - surgeonRodionov
+Пароль - rodionovKP
